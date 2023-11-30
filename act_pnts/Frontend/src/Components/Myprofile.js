@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import EditProfile from './Editprofile';
+import axios from 'axios'; 
 import './Myprofile.css'; // Import the CSS file
 
 const MyProfile = () => {
@@ -12,8 +13,11 @@ const MyProfile = () => {
     // Fetch user data from an API or other source
     const fetchUserData = async () => {
       try {
-        const response = await fetch('');
-        const data = await response.json();
+        let userData = await localStorage.getItem('userData');
+        userData = JSON.parse(userData);
+        console.log("USER DATA IS ", userData);
+        const response = await axios.get('http://localhost:5000/api/users/'+userData.userId);
+        const data = await response.data;
         setProfileData(data);
       } catch (error) {
         console.error('Error fetching user data:', error);

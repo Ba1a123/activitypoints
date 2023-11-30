@@ -22,6 +22,7 @@ const SignIn = () => {
 
       const { token, userRole } = response.data;
       localStorage.setItem('token', token);
+      localStorage.setItem('userData', JSON.stringify(response.data));
 
       // Redirect based on the user's role
       if (userRole === 'admin') {
