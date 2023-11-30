@@ -15,6 +15,7 @@ const Navbar = () => {
   const handleSignOut = () => {
     // Remove the token from local storage (or your state management solution)
     localStorage.removeItem('token');
+    localStorage.removeItem('userData');
     localStorage.removeItem('userRole');
     localStorage.removeItem('userRollNo');
 
