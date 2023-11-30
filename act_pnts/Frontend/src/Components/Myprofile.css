@@ -1,0 +1,25 @@
+/* MyProfile.css */
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    color: #333;
+  }
+  
+  .profile-section {
+    margin-bottom: 20px;
+  }
+  
+  .profile-section strong {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  /* Add more specific styles as needed */
+  

@@ -1,0 +1,15 @@
+
+
+{
+    "myProfile": {
+      "rollNo": "123456",
+      "name": "John Doe",
+      "department": "Computer Science",
+      "email": "john@example.com",
+      "contactNo": "+1 123-456-7890",
+      "address": "123 Main Street, City, Country",
+      "dob": "1990-01-01",
+      "fathersName": "John Doe Sr."
+    }
+  }
+  
