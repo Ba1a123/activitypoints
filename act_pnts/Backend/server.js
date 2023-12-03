@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const usersRouter = require('./Routers/users');
 const signinRouter = require('./Routers/signin');  
+const activityRouter = require('./Routers/activity');
 
 const app = express();
 app.use(bodyParser.json());
@@ -27,6 +28,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 app.use('/api/users', usersRouter);
 // Use the signinRouter for /api/signin
 app.use('/api/signin', signinRouter);
+app.use('/api/activity', activityRouter);
 
 const PORT = 5000;
 app.listen(PORT, () => {

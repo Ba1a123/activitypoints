@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import './UpdateForm.css';
+import axios from 'axios';
+
 
 const UploadForm = () => {
   const [category, setCategory] = useState('');
@@ -26,15 +28,32 @@ const UploadForm = () => {
     setExpectedPoints(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // You can perform file upload logic here
     // For now, let's just log the selected category, activity name, file, and expected points
-    console.log('Category:', category);
-    console.log('Activity Name:', activityName);
-    console.log('File:', file);
-    console.log('Expected Points:', expectedPoints);
+    // console.log('Category:', category);
+    // console.log('Activity Name:', activityName);
+    // console.log('File:', file);
+    // console.log('Expected Points:', expectedPoints);
+    try {
+      const formData = new FormData();
+      formData.append('category', category);
+      formData.append('activityName', activityName);
+      formData.append('file', file);
+      formData.append('expectedPoints', expectedPoints);
+
+      await axios.post('/api/activity/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      console.log('Activity uploaded successfully');
+    } catch (error) {
+      console.error('Error uploading activity:', error);
+    }
   };
 
   return (

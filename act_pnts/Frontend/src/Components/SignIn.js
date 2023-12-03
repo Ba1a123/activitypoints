@@ -29,7 +29,7 @@ const SignIn = () => {
         navigate('/admin/dashboard');
 
       } else if (userRole === 'mentor') {
-        navigate('/mentor/dashboard');
+        navigate('/mentor-dashboard');
       }
         else {
         navigate('/dashboard');

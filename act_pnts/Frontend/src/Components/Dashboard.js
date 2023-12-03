@@ -1,9 +1,37 @@
-import React from 'react'
+// Dashboard.js
 
-export default function Dashboard() {
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const Dashboard = () => {
+  const [activities, setActivities] = useState([]);
+
+  useEffect(() => {
+    // Fetch activities from the server
+    const fetchActivities = async () => {
+      try {
+        const response = await axios.get('/api/activity/get');
+        setActivities(response.data);
+      } catch (error) {
+        console.error('Error fetching activities:', error);
+      }
+    };
+
+    fetchActivities();
+  }, []);
+
   return (
     <div>
-      <p>dashboard</p>
+      <h2>Dashboard</h2>
+      <ul>
+        {activities.map((activity) => (
+          <li key={activity._id}>
+            <strong>{activity.activityName}</strong> - Status: {activity.status}, Expected Points: {activity.expectedPoints}
+          </li>
+        ))}
+      </ul>
     </div>
-  )
-}
+  );
+};
+
+export default Dashboard;

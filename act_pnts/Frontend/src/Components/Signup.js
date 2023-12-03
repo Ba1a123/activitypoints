@@ -111,7 +111,7 @@ const SignUp = () => {
 
           <p>
             Already have an account?
-            <Link to="/signin">Sign In here</Link>
+            <Link to="/">Sign In here</Link>
           </p>
         </form>
       </div>
