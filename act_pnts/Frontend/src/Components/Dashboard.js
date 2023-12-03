@@ -10,7 +10,10 @@ const Dashboard = () => {
     // Fetch activities from the server
     const fetchActivities = async () => {
       try {
-        const response = await axios.get('/api/activity/get');
+        let userData = await localStorage.getItem('userData');
+        userData = JSON.parse(userData)
+        console.log("USERDATA IS ", userData)
+        const response = await axios.get('/api/activity/get/'+userData.Rollno);
         setActivities(response.data);
       } catch (error) {
         console.error('Error fetching activities:', error);
@@ -26,7 +29,9 @@ const Dashboard = () => {
       <ul>
         {activities.map((activity) => (
           <li key={activity._id}>
-            <strong>{activity.activityName}</strong> - Status: {activity.status}, Expected Points: {activity.expectedPoints}
+            <strong>{activity.activityName}</strong> - Status: {activity.approvalStatus}, Expected Points: {activity.expectedPoints} 
+            {activity.approvalStatus === 'approved'? ', Accepted Points : '+ activity.approvalPoints : ''}
+            
           </li>
         ))}
       </ul>

@@ -38,11 +38,15 @@ const UploadForm = () => {
     // console.log('File:', file);
     // console.log('Expected Points:', expectedPoints);
     try {
+      let userData = await localStorage.getItem('userData');
+      userData = JSON.parse(userData)
       const formData = new FormData();
       formData.append('category', category);
       formData.append('activityName', activityName);
+      formData.append('fileName', file.name)
       formData.append('file', file);
       formData.append('expectedPoints', expectedPoints);
+      formData.append('rollNo', userData.Rollno)
 
       await axios.post('/api/activity/upload', formData, {
         headers: {

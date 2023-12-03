@@ -4,24 +4,26 @@ const multer = require('multer');
 const Activity = require('../Models/Activity');
 
 const router = express.Router();
-const upload = multer();
+const fileUpload = require("../fileUpload");
 
 // Route for handling file upload
-router.post('/upload', upload.single('file'), async (req, res) => {
+router.post('/upload',fileUpload.uploadStore.fields([{name:'file'}]), async (req, res) => {
   try {
-    const { category, activityName, expectedPoints } = req.body;
-    const file = req.file;
+    const { category, activityName, expectedPoints, fileName, rollNo } = req.body;
 
     // Save the file to the database
     const activity = new Activity({
       category,
       activityName,
-      filename: file.originalname,
+      filename: fileName,
       expectedPoints,
-      submittedFile:  file.originalname
+      submittedFile: fileName,
+      rollNo: rollNo
     });
 
-    await activity.save();
+    let response = await activity.save();
+
+    console.log("RESPONSE IS ", response)
 
     res.status(200).json({ message: 'File uploaded successfully' });
   } catch (error) {
@@ -30,7 +32,17 @@ router.post('/upload', upload.single('file'), async (req, res) => {
   }
 });
 
-router.get('/get', async (req, res) => {
+router.get('/get/:rollNo', async (req, res) => {
+    try {
+      const activities = await Activity.find({rollNo: req.params.rollNo});
+      res.json(activities);
+    } catch (error) {
+      console.error('Error fetching activities:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
+  router.get('/getAll', async (req, res) => {
     try {
       const activities = await Activity.find();
       res.json(activities);
@@ -39,6 +51,7 @@ router.get('/get', async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
+
   // Route for mentor to get submitted activities
 router.get('/mentor/activities', async (req, res) => {
     try {
@@ -54,11 +67,11 @@ router.get('/mentor/activities', async (req, res) => {
   router.put('/mentor/activity/:id', async (req, res) => {
     try {
       const activityId = req.params.id;
-      const { approvalStatus } = req.body;
+      const { approvalStatus, approvalPoints } = req.body;
   
       const updatedActivity = await Activity.findByIdAndUpdate(
         activityId,
-        { $set: { approvalStatus } },
+        { $set: { approvalStatus, approvalPoints } },
         { new: true }
       );
   

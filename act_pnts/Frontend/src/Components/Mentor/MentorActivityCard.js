@@ -40,7 +40,7 @@ const MentorActivityCard = ({ activity }) => {
       {showDocument && (
         <div>
           {/* You can implement a modal or display the document directly */}
-          <p>Document: <a href={`/api/activity/mentor/download/${activity._id}`} target="_blank" rel="noopener noreferrer">Download Document</a></p>
+          <p>Document: <a href={`http://localhost:3000/api/files/${activity.submittedFile}`} target="_blank" rel="noopener noreferrer">Download Document</a></p>
           <button onClick={() => setShowDocument(false)}>Close Document</button>
         </div>
       )}

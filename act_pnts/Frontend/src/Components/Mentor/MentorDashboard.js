@@ -10,7 +10,7 @@ const MentorDashboard = () => {
     // Fetch mentor's submitted activities
     const fetchActivities = async () => {
       try {
-        const response = await axios.get('/api/activity/get');
+        const response = await axios.get('/api/activity/getAll');
         setActivities(response.data);
       } catch (error) {
         console.error('Error fetching activities:', error);
